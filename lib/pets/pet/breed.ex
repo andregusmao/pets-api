@@ -5,12 +5,12 @@ defmodule Pets.Pet.Breed do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "breeds" do
-    field :kind, :char
+    field :kind, :string
     field :name, :string
-    field :size, :char
+    field :size, :string
     field :origin, :string
 
-    timestamps()
+    timestamps(type: :utc_datetime_usec)
   end
 
   @doc false
@@ -19,6 +19,7 @@ defmodule Pets.Pet.Breed do
     |> cast(attrs, [:kind, :name, :size, :origin])
     |> validate_required([:kind, :name, :size, :origin])
     |> unique_constraint(:name)
-    |>
+    |> validate_length(:kind, max: 1)
+    |> validate_length(:size, max: 1)
   end
 end
