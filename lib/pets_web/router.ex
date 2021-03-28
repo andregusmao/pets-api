@@ -7,6 +7,8 @@ defmodule PetsWeb.Router do
 
   scope "/api", PetsWeb do
     pipe_through :api
+
+    resources "/breeds", BreedController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
